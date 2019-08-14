@@ -187,6 +187,9 @@
     <Image Include="background.bmp" />
     <Image Include="background2.bmp" />
     <Image Include="background3.bmp" />
+    <Image Include="bgrnd_schla_win.bmp" />
+    <Image Include="bgrnd_schli_win.bmp" />
+    <Image Include="bgrnd_tie.bmp" />
     <Image Include="blue_btn.bmp" />
     <Image Include="schla_game.bmp" />
     <Image Include="schli_bur.bmp" />

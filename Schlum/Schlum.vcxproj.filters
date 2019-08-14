@@ -87,5 +87,14 @@
     <Image Include="schla_game.bmp">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="bgrnd_schla_win.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="bgrnd_schli_win.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="bgrnd_tie.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>
