@@ -72,5 +72,20 @@
     <Image Include="schli_bur.bmp">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="background3.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\..\..\..\downloads\bitmap12.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\..\..\..\Downloads\schli_bur2.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="schli_game.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="schla_game.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>
