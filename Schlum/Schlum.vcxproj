@@ -195,7 +195,11 @@
     <Image Include="schli_bur.bmp" />
     <Image Include="schli_game.bmp" />
     <Image Include="Schlum.ico" />
+    <Image Include="ScliSchlaGif.gif" />
     <Image Include="small.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\downloads\gif2.bin" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

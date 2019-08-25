@@ -96,5 +96,13 @@
     <Image Include="bgrnd_tie.bmp">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="ScliSchlaGif.gif">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\downloads\gif2.bin">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

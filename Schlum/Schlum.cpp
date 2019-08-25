@@ -10,6 +10,8 @@
 #include <nana/gui/widgets/button.hpp>
 #include <nana/paint/image.hpp>
 #include <nana/gui/timer.hpp>
+#include <nana/gui/widgets/picture.hpp>
+#include <nana/gui/place.hpp>
 
 using namespace nana;
 using namespace paint;
@@ -57,21 +59,28 @@ void the_game() {
 		});
 	lb_cd.fgcolor(colors::black);
 	
+
 	
-
-	button btn_schli{ fm, rectangle{260, 70, 182, 282} };
-	element::bground bground2;
-	bground2.image(image("..\\..\\Schlum\\Schlum\\schli_game.bmp"), false, rectangle{ 0, 0 ,862,225 });
-	API::effects_bground(btn_schli, effects::bground_transparent(0), 0);
-	bground2.stretch_parts(4, 4, 4, 4);
-	btn_schli.set_bground(bground2);
-
-	button btn_schla{ fm, rectangle{260, 70, 182, 282} };
+	button btn_schla2{ fm, rectangle{260, 70, 182, 282} };
 	element::bground bground3;
 	bground3.image(image("..\\..\\Schlum\\Schlum\\schla_game.bmp"), false, rectangle{0, 0 ,1100,280 });
-	API::effects_bground(btn_schla, effects::bground_transparent(0), 0);
+	API::effects_bground(btn_schla2, effects::bground_transparent(0), 0);
 	bground3.stretch_parts(4, 4, 4, 4);
-	btn_schli.set_bground(bground3);
+	btn_schla2.set_bground(bground3);
+	button btn_schla{ fm, rectangle{260, 70, 182, 282} };
+	btn_schla.set_bground(bground3);
+	API::effects_bground(btn_schla, effects::bground_transparent(0), 0);
+
+	button btn_schli2{ fm, rectangle{260, 70, 182, 282} };
+	element::bground bground2;
+	bground2.image(image("..\\..\\Schlum\\Schlum\\schli_game.bmp"), false, rectangle{ 0, 0 ,862,225 });
+	API::effects_bground(btn_schli2, effects::bground_transparent(0), 0);
+	bground2.stretch_parts(4, 4, 4, 4);
+	btn_schli2.set_bground(bground2);
+	button btn_schli{ fm, rectangle{260, 70, 182, 282} };
+	API::effects_bground(btn_schli, effects::bground_transparent(0), 0);
+	btn_schli.set_bground(bground2);
+	
 
 
 	label lb2{ fm, rectangle{ 541, 20, 150, 50 } };
@@ -102,57 +111,117 @@ void the_game() {
 							 { 700 }
 		});
 	lb_pt.fgcolor(colors::black);
-	int pt = 0;
-	lb_pt.caption("0");
+	static int pt = 0;
+	lb_pt.caption(std::to_string(pt));
 
+	
 		
-	static int i = 2;
-	static int j = 0;
-	static int schla = 0;
-	static int schli = 0;
+	static int i = 2, j = 0, k = 0, l = 0,  z = 0, e = 0, schla = 0, schli = 0;
 	lb_cd.caption("2");
+	timer tm3{ std::chrono::milliseconds{250} };
+	timer tm2{ std::chrono::milliseconds{250} };
 	timer tm{ std::chrono::milliseconds{1000} };
-	tm.elapse([&lb_cd, &tm, &lb_state, &lb_pt, &pt, &btn_schli, &btn_schla, &bground2] {
+	tm.elapse([&lb_cd, &tm, &lb_state, &lb_pt, &btn_schli, &btn_schla, &bground2, &btn_schli2, &tm2, &bground3, &tm3] {
 		lb_cd.caption(std::to_string(i--));
 		if (i <= -1||j==0) {
 
 			switch (j) {
 			case 0:
-				i = 2;
+				l = 0;
+				k = 0;
+				e = 0;
+				i = 1;
 				lb_state.caption("Shli ready?");
+				btn_schla.hide();
+				btn_schli2.hide();
 				break;
 			case 1:
-				i = 2;
+				i = 1;
 				lb_state.caption("Shli play?");
-				btn_schli.events().click([&lb_pt, &pt] {
-					++pt;
-					lb_pt.caption(std::to_string(pt));
+					
+				tm2.elapse([&btn_schli, &lb_pt, &bground3] {
+					if (l <= 12) {
+					switch (k)
+					{
+					case 0:
+						btn_schli.show();
+						if(e==0)
+						btn_schli.events().click([&lb_pt] {
+								++pt;
+								lb_pt.caption(std::to_string(pt));
+							
+							});
+						++k;
+						++l;
+						++e;
+						break;
+					case 1:
+						btn_schli.hide();
+						--k;
+						++l;
+						break;
+					}
+					}
 					});
+				tm2.start();
+					
 				break;
 			case 2:
-				i = 2;
+				tm2.stop();
+				btn_schli.hide();
+				btn_schli2.show();
+				i = 1;
 				lb_state.caption("Shli ended!!!");
 				schli = pt;
 				pt = 0;
 				break;
 			case 3:
-				i = 1;
+				btn_schli2.hide();
+				btn_schla.show();
+				i = 2;
 				lb_state.caption("Shla ready?");
-				lb_pt.caption("0");
+				lb_pt.caption(std::to_string(pt));
 				break;
 			case 4:
+				l = 0;
+				k = 0;
+				e = 0;
 				i = 2;
 				lb_state.caption("Shla play!!!");
-				btn_schla.events().click([&lb_pt, &pt] {
-					++pt;
-					lb_pt.caption(std::to_string(pt));
+				tm3.elapse([&btn_schla, &lb_pt, &bground3,&btn_schli2] {
+					if (l <= 12) {
+						switch (k)
+						{
+						case 0:
+							btn_schli2.hide();
+							if (e == 0)
+								btn_schla.events().click([&lb_pt] {
+								++pt;
+								lb_pt.caption(std::to_string(pt));
+
+									});
+							++k;
+							++l;
+							++e;
+							break;
+						case 1:
+							btn_schli2.show();
+							--k;
+							++l;
+							break;
+						}
+					}
 					});
+				tm3.start();
 				break;
 			case 5:
-				i = 2;
-				lb_state.caption("Shla ended!!!");
+				tm3.stop();
 				schla = pt;
 				pt = 0;
+				lb_pt.caption(std::to_string(schla));
+				btn_schla.hide();
+				i = 2;
+				lb_state.caption("Shla ended!!!");
 				break;
 			case 6:
 				j = 0;
