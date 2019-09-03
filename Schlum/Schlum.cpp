@@ -35,9 +35,16 @@ void entry_window();
 
 void end(int r);
 
+
+
 void the_game() {
+	const size WINDOW_SIZE = { 711, 400 };
+	constexpr bool set_min_size = false;
+	constexpr bool set_max_size = true;
 	form fm;
-	fm.size(size(711, 400));
+	fm.size(WINDOW_SIZE);
+	API::track_window_size(fm, WINDOW_SIZE, set_min_size);
+	API::track_window_size(fm, WINDOW_SIZE, set_max_size);
 	fm.caption("Schlum");
 
 	label lb{ fm, rectangle{ 75, 20, 140, 50 } };
@@ -116,13 +123,13 @@ void the_game() {
 
 	
 		
-	static int i = 2, j = 0, k = 0, l = 0,  z = 0, e = 0, schla = 0, schli = 0;
-	lb_cd.caption("2");
+	static int i = 4, j = 0, k = 0, l = 0,  z = 0, e = 0, schla = 0, schli = 0;
+	lb_cd.caption("4");
 	timer tm3{ std::chrono::milliseconds{250} };
 	timer tm2{ std::chrono::milliseconds{250} };
 	timer tm{ std::chrono::milliseconds{1000} };
 	tm.elapse([&lb_cd, &tm, &lb_state, &lb_pt, &btn_schli, &btn_schla, &bground2, &btn_schli2, &tm2, &bground3, &tm3] {
-		lb_cd.caption(std::to_string(i--));
+		
 		if (i <= -1||j==0) {
 
 			switch (j) {
@@ -130,17 +137,17 @@ void the_game() {
 				l = 0;
 				k = 0;
 				e = 0;
-				i = 1;
+				i = 4;
 				lb_state.caption("Shli ready?");
 				btn_schla.hide();
 				btn_schli2.hide();
 				break;
 			case 1:
-				i = 1;
+				i = 15;
 				lb_state.caption("Shli play?");
 					
 				tm2.elapse([&btn_schli, &lb_pt, &bground3] {
-					if (l <= 12) {
+					if (l <= 61) {
 					switch (k)
 					{
 					case 0:
@@ -164,13 +171,12 @@ void the_game() {
 					}
 					});
 				tm2.start();
-					
 				break;
 			case 2:
 				tm2.stop();
 				btn_schli.hide();
 				btn_schli2.show();
-				i = 1;
+				i = 3;
 				lb_state.caption("Shli ended!!!");
 				schli = pt;
 				pt = 0;
@@ -186,10 +192,10 @@ void the_game() {
 				l = 0;
 				k = 0;
 				e = 0;
-				i = 2;
+				i = 15;
 				lb_state.caption("Shla play!!!");
 				tm3.elapse([&btn_schla, &lb_pt, &bground3,&btn_schli2] {
-					if (l <= 12) {
+					if (l <= 61) {
 						switch (k)
 						{
 						case 0:
@@ -219,8 +225,9 @@ void the_game() {
 				schla = pt;
 				pt = 0;
 				lb_pt.caption(std::to_string(schla));
+				btn_schli2.hide();
 				btn_schla.hide();
-				i = 2;
+				i = 3;
 				lb_state.caption("Shla ended!!!");
 				break;
 			case 6:
@@ -247,6 +254,7 @@ void the_game() {
 			};
 			j++;
 		};
+		lb_cd.caption(std::to_string(i--));
 		});
 	tm.start();
 
@@ -264,9 +272,16 @@ void the_game() {
 }
 
 void entry_window() {
+	const size WINDOW_SIZE = { 711, 400 };
+	constexpr bool set_min_size = false;
+	constexpr bool set_max_size = true;
 	form fm;
+	fm.size(WINDOW_SIZE);
+	API::track_window_size(fm, WINDOW_SIZE, set_min_size);
+	API::track_window_size(fm, WINDOW_SIZE, set_max_size);
 	fm.caption("Schlum");
-	fm.size(size(711, 400));
+	
+	
 
 	button btn(fm, rectangle(285, 180, 140, 40));
 	element::bground bground;
@@ -293,7 +308,7 @@ void entry_window() {
 							 { 700 }
 		});
 	lb.fgcolor(colors::yellow);
-	lb.caption("Shla");
+	lb.caption("Shli");
 
 
 	label lb2{ fm, rectangle{ 551, 20, 140, 50 } };
@@ -304,7 +319,7 @@ void entry_window() {
 							 { 700 }
 		});
 	lb2.fgcolor(colors::yellow);
-	lb2.caption("Shli");
+	lb2.caption("Shla");
 
 	image img("..\\..\\Schlum\\Schlum\\background3.bmp");
 	drawing dw(fm);
@@ -320,13 +335,18 @@ void entry_window() {
 
 void end(int r) {
 
+	const size WINDOW_SIZE = { 711, 400 };
+	constexpr bool set_min_size = false;
+	constexpr bool set_max_size = true;
 	form fm;
-	fm.size(size(711, 400));
+	fm.size(WINDOW_SIZE);
+	API::track_window_size(fm, WINDOW_SIZE, set_min_size);
+	API::track_window_size(fm, WINDOW_SIZE, set_max_size);
 	fm.caption("Schlum");
 
 	image img("..\\..\\Schlum\\Schlum\\bgrnd_tie.bmp");
-	image img2("..\\..\\Schlum\\Schlum\\bgrnd_schla_win.bmp");
 	image img3("..\\..\\Schlum\\Schlum\\bgrnd_schli_win.bmp");
+	image img2("..\\..\\Schlum\\Schlum\\bgrnd_schla_win.bmp");
 	drawing dw(fm);
 	label lb{ fm, rectangle{ 220, 5, 300, 50 } };
 	API::effects_bground(lb, effects::bground_transparent(0), 0);
@@ -354,7 +374,7 @@ void end(int r) {
 				img2.paste(graph, point{});
 			});
 		dw.update();
-		lb.caption("Schla wins!!!");
+		lb.caption("Schli wins!!!");
 		break;
 	case 2:
 		dw.draw([&img3](graphics& graph)
@@ -363,7 +383,7 @@ void end(int r) {
 				img3.paste(graph, point{});
 			});
 		dw.update();
-		lb.caption("Schli wins!!!");
+		lb.caption("Schla wins!!!");
 		break;
 	};
 
