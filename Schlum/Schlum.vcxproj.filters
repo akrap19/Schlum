@@ -104,5 +104,6 @@
     <None Include="..\..\..\..\downloads\gif2.bin">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="redme.md" />
   </ItemGroup>
 </Project>
