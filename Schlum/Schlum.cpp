@@ -2,6 +2,7 @@
 //
 
 #include "stdafx.h"
+#include "Resource.h"
 #include "Schlum.h"
 #include "String.h"
 #include <nana/gui.hpp>
@@ -294,4 +295,5 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	_In_ int       nCmdShow)
 {
 	Windows(0, 2);
+
 }
