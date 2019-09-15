@@ -1,4 +1,4 @@
-// Schlum.cpp : Defines the entry point for the application.
+﻿// Schlum.cpp : Defines the entry point for the application.
 //
 
 #include "stdafx.h"
@@ -21,12 +21,14 @@ void Windows(int r, int p);
 
 class components {
 private:
+	//Deklariranje forme i njezine komoponente
 	const size WINDOW_SIZE = { 711, 400 };
 	static constexpr bool set_min_size = false;
 	static constexpr bool set_max_size = true;
 	form fm;
 	element::bground bground;
 public:
+	//konstruktor sa funkcijama za postizanje statičnog prozora
 	components() {
 		fm.size(WINDOW_SIZE);
 		API::track_window_size(fm, WINDOW_SIZE, set_min_size);
@@ -41,6 +43,7 @@ public:
 		int lb2_x, int lb2_y, unsigned int lb2_x2, unsigned int lb2_y2, std::string lb2_cap,
 		std::string res_img, int game) {
 
+		//deklaracija gumbi za logiku 
 		button btn_schla2{ fm, rectangle{260, 70, 182, 282} };
 		button btn_schla{ fm, rectangle{260, 70, 182, 282} };
 		button btn_schli2{ fm, rectangle{260, 70, 182, 282} };
@@ -50,6 +53,7 @@ public:
 		btn_schli2.hide();
 		btn_schli.hide();
 
+		//univerzalni gumbi
 		button btn(fm, rectangle(btn_x, btn_y, btn_x2, btn_y2));
 		btn.set_bground(bground);
 		btn.typeface(font{ "Bauhaus 93", 18, { 700 } });
@@ -72,6 +76,7 @@ public:
 			Windows(0, 0);
 			});
 
+		//Deklaracija labela za logiku
 		label lb_state{ fm, rectangle{ 220, 5, 300, 50 } };
 		label lb_pt{ fm, rectangle{479, 70, 182, 282 } };
 		label lb_cd{ fm, rectangle{ 50, 70, 182, 282 } };
@@ -82,6 +87,7 @@ public:
 		lb_pt.hide();
 		lb_cd.hide();
 
+		//Univerzalne labele
 		label lb{ fm, rectangle{ lb_x, lb_y, lb_x2, lb_y2 } };
 		API::effects_bground(lb, effects::bground_transparent(0), 0);
 		lb.typeface(font{ "Bauhaus 93",35, { 700 } });
@@ -94,6 +100,7 @@ public:
 		lb2.fgcolor(colors::yellow);
 		lb2.caption(lb2_cap);
 
+		//Pozadinska slika
 		image img(res_img);
 		drawing dw(fm);
 		dw.draw([&img](graphics& graph)
@@ -103,15 +110,18 @@ public:
 			});
 		dw.update();
 
+		//Timeri za logiku
 		timer tm3{ std::chrono::milliseconds{250} };
 		timer tm2{ std::chrono::milliseconds{250} };
 		timer tm{ std::chrono::milliseconds{1000} };
 
 		if (game == 1) {
 
+			//Zapis u labeli
 			lb.caption("Time");
 			lb2.caption("Points");
 
+			//Prikaz gumbiju i labeli
 			btn_schla2.show();
 			btn_schla.show();
 			btn_schli2.show();
@@ -120,6 +130,7 @@ public:
 			lb_pt.show();
 			lb_cd.show();
 
+			//Osposobljavanje gumbi
 			element::bground bground3;
 			bground3.image(image("..\\..\\Schlum\\Schlum\\schla_game.bmp"), false, rectangle{ 0, 0 ,1100,280 });
 			API::effects_bground(btn_schla2, effects::bground_transparent(0), 0);
@@ -136,6 +147,7 @@ public:
 			API::effects_bground(btn_schli, effects::bground_transparent(0), 0);
 			btn_schli.set_bground(bground2);
 
+			//Osposobljavanje labeli
 			API::effects_bground(lb_state, effects::bground_transparent(0), 0);
 			lb_state.typeface(font{ "Bauhaus 93", 35,{ 700 } });
 			lb_state.fgcolor(colors::yellow);
@@ -146,38 +158,41 @@ public:
 			static int pt = 0;
 			lb_pt.caption(std::to_string(pt));
 
-			static int i = 4, j = 0, k = 0, l = 0, z = 0, e = 0, schla = 0, schli = 0;
+			//Logika
+			static int timer_vrjeme = 4, faza_igre = 0, slika_u_izmjeni = 0, Broj_izmjena = 0, provjera = 0, schla = 0, schli = 0;
 			lb_cd.caption("4");
+			//Pokretanje glavnog timera 
 			tm.elapse([&lb_cd, &tm, &lb_state, &lb_pt, &btn_schli, &btn_schla, &bground2, &btn_schli2, &tm2, &bground3, &tm3] {
-				if (i <= -1 || j == 0) {
-					switch (j) {
+				if (timer_vrjeme <= -1 || faza_igre == 0) {
+					//Faze igre
+					switch (faza_igre) {
 					case 0:
-						l = 0; k = 0; e = 0; i = 4;
+						Broj_izmjena = 0; slika_u_izmjeni = 0; provjera = 0; timer_vrjeme = 4;
 						lb_state.caption("Shli ready?");
 						btn_schla.hide();
 						btn_schli2.hide();
 						break;
 					case 1:
-						i = 15;
+						timer_vrjeme = 15;
 						lb_state.caption("Shli play?");
-
+						//Timer za izmjenu slike
 						tm2.elapse([&btn_schli, &lb_pt, &bground3] {
-							if (l <= 61) {
-								switch (k)
+							if (Broj_izmjena <= 61) {
+								switch (slika_u_izmjeni)
 								{
 								case 0:
 									btn_schli.show();
-									if (e == 0)
+									if (provjera == 0)
 										btn_schli.events().click([&lb_pt] {
 										++pt;
 										lb_pt.caption(std::to_string(pt));
 											});
-									++k; ++l; ++e;
+									++slika_u_izmjeni; ++Broj_izmjena; ++provjera;
 									break;
 								case 1:
 									btn_schli.hide();
-									--k;
-									++l;
+									--slika_u_izmjeni;
+									++Broj_izmjena;
 									break;
 								}
 							}
@@ -188,7 +203,7 @@ public:
 						tm2.stop();
 						btn_schli.hide();
 						btn_schli2.show();
-						i = 3;
+						timer_vrjeme = 3;
 						lb_state.caption("Shli ended!!!");
 						schli = pt;
 						pt = 0;
@@ -196,31 +211,32 @@ public:
 					case 3:
 						btn_schli2.hide();
 						btn_schla.show();
-						i = 2;
+						timer_vrjeme = 2;
 						lb_state.caption("Shla ready?");
 						lb_pt.caption(std::to_string(pt));
 						break;
 					case 4:
-						l = 0; k = 0; e = 0; i = 15;
+						Broj_izmjena = 0; slika_u_izmjeni = 0; provjera = 0; timer_vrjeme = 15;
 						lb_state.caption("Shla play!!!");
+						//Timer za izmjenu slike
 						tm3.elapse([&btn_schla, &lb_pt, &bground3, &btn_schli2] {
-							if (l <= 61) {
-								switch (k)
+							if (Broj_izmjena <= 61) {
+								switch (slika_u_izmjeni)
 								{
 								case 0:
 									btn_schli2.hide();
-									if (e == 0)
+									if (provjera == 0)
 										btn_schla.events().click([&lb_pt] {
 										++pt;
 										lb_pt.caption(std::to_string(pt));
 
 											});
-									++k; ++l; ++e;
+									++slika_u_izmjeni; ++Broj_izmjena; ++provjera;
 									break;
 								case 1:
 									btn_schli2.show();
-									--k;
-									++l;
+									--slika_u_izmjeni;
+									++Broj_izmjena;
 									break;
 								}
 							}
@@ -234,12 +250,12 @@ public:
 						lb_pt.caption(std::to_string(schla));
 						btn_schli2.hide();
 						btn_schla.hide();
-						i = 3;
+						timer_vrjeme = 3;
 						lb_state.caption("Shla ended!!!");
 						break;
 					case 6:
-						j = 0;
-						i = 2;
+						faza_igre = 0;
+						timer_vrjeme = 2;
 						tm.stop();
 						API::exit_all();
 						if (schla > schli) {
@@ -256,22 +272,24 @@ public:
 						}
 						break;
 					};
-					j++;
+					faza_igre++;
 				};
-				lb_cd.caption(std::to_string(i--));
+				lb_cd.caption(std::to_string(timer_vrjeme--));
 				});
 			tm.start();
 		}
+		//Funkcija za prikaz ekrana i izvođenje
 		fm.show();
 		exec();
 	}
 };
 
 void Windows(int r, int p) {
-
+	
 	components comp;
 	std::string res_cap, res_img;
 
+	//Pozivi funkcija sa komponentama koje su joj potrebne
 	switch (r) {
 	case 0:
 		comp.ChoseComponent(285, 180, 140, 40, "Play!", 0, 0, 0, 0, "", 75, 20, 140, 50, "Schli", 521, 20, 140, 50, "Schla", "..\\..\\Schlum\\Schlum\\background3.bmp", 0);
@@ -294,6 +312,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	_In_ LPWSTR    lpCmdLine,
 	_In_ int       nCmdShow)
 {
+	//Poziv početnog prozora
 	Windows(0, 2);
-
 }
