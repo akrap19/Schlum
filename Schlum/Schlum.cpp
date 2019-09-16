@@ -132,7 +132,7 @@ public:
 
 			//Osposobljavanje gumbi
 			element::bground bground3;
-			bground3.image(image("..\\..\\Schlum\\Schlum\\schla_game.bmp"), false, rectangle{ 0, 0 ,1100,280 });
+			bground3.image(image("..\\Schlum\\schla_game.bmp"), false, rectangle{ 0, 0 ,1100,280 });
 			API::effects_bground(btn_schla2, effects::bground_transparent(0), 0);
 			bground3.stretch_parts(4, 4, 4, 4);
 			btn_schla2.set_bground(bground3);
@@ -140,7 +140,7 @@ public:
 			API::effects_bground(btn_schla, effects::bground_transparent(0), 0);
 
 			element::bground bground2;
-			bground2.image(image("..\\..\\Schlum\\Schlum\\schli_game.bmp"), false, rectangle{ 0, 0 ,862,225 });
+			bground2.image(image("..\\Schlum\\schli_game.bmp"), false, rectangle{ 0, 0 ,862,225 });
 			API::effects_bground(btn_schli2, effects::bground_transparent(0), 0);
 			bground2.stretch_parts(4, 4, 4, 4);
 			btn_schli2.set_bground(bground2);
@@ -292,15 +292,15 @@ void Windows(int r, int p) {
 	//Pozivi funkcija sa komponentama koje su joj potrebne
 	switch (r) {
 	case 0:
-		comp.ChoseComponent(285, 180, 140, 40, "Play!", 0, 0, 0, 0, "", 75, 20, 140, 50, "Schli", 521, 20, 140, 50, "Schla", "..\\..\\Schlum\\Schlum\\background3.bmp", 0);
+		comp.ChoseComponent(285, 180, 140, 40, "Play!", 0, 0, 0, 0, "", 75, 20, 140, 50, "Schli", 521, 20, 140, 50, "Schla", "..\\Schlum\\background3.bmp", 0);
 		break;
 	case 1:
-		comp.ChoseComponent(0, 0, 0, 0, "", 0, 0, 0, 0, "", 75, 20, 140, 50, "Schli", 521, 20, 140, 50, "Schla", "..\\..\\Schlum\\Schlum\\background2.bmp", 1);
+		comp.ChoseComponent(0, 0, 0, 0, "", 0, 0, 0, 0, "", 75, 20, 140, 50, "Schli", 521, 20, 140, 50, "Schla", "..\\Schlum\\background2.bmp", 1);
 		break;
 	case 2:
-		if (p == 0) { res_cap = "It's a Tie!!!"; res_img = "..\\..\\Schlum\\Schlum\\bgrnd_tie.bmp"; }
-		else if (p == 1) { res_cap = "Schli wins!!!"; res_img = "..\\..\\Schlum\\Schlum\\bgrnd_schla_win.bmp"; }
-		else if (p == 2) { res_cap = "Schla wins!!!"; res_img = "..\\..\\Schlum\\Schlum\\bgrnd_schli_win.bmp"; }
+		if (p == 0) { res_cap = "It's a Tie!!!"; res_img = "..\\Schlum\\bgrnd_tie.bmp"; }
+		else if (p == 1) { res_cap = "Schli wins!!!"; res_img = "..\\Schlum\\bgrnd_schla_win.bmp"; }
+		else if (p == 2) { res_cap = "Schla wins!!!"; res_img = "..\\Schlum\\bgrnd_schli_win.bmp"; }
 
 		comp.ChoseComponent(65, 180, 140, 40, "Play again!", 506, 180, 140, 40, "Return", 220, 5, 300, 50, res_cap, 0, 0, 0, 0, "", res_img, 0);
 		break;
